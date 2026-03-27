@@ -1,0 +1,194 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  padding-top: 10%;
+  min-height: 100vh; /* ensure the body is at least the viewport height so the animated background color never appears 'cut off' */
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+    padding-top: 20%;
+  }
+}
+
+/* Card flip styles */
+.pokemon-card {
+	width: 200px;
+	height: 260px;
+	perspective: 1000px; /* needed for 3D effect */
+	cursor: pointer;
+	margin: 12px;
+}
+
+.pokemon-card > .card-front,
+.pokemon-card > .card-back {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform-style: preserve-3d;
+	transition: transform 0.6s;
+	border-radius: 8px;
+	box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	backface-visibility: hidden; /* hide the reverse side when rotated */
+	-webkit-backface-visibility: hidden;
+	background: #fff;
+	padding: 12px;
+}
+
+.pokemon-card > .card-front img {
+	width: 96px;
+	height: 96px;
+	image-rendering: pixelated;
+}
+
+.pokemon-card > .card-back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: rotateY(180deg);
+}
+
+/* The wrapper that actually flips: we'll wrap the front/back transforms by toggling a class */
+.pokemon-card.flipped > .card-front {
+	transform: rotateY(180deg);
+}
+
+.pokemon-card.flipped > .card-back {
+	transform: rotateY(360deg);
+}
+
+/* Make sure the card container keeps the 3D context for children */
+.pokemon-card {
+	position: relative;
+	perspective: 1000px;
+}
+
+/* (Enter/exit animations removed) */
+
+/* Small responsive tweaks */
+@media (max-width: 480px) {
+	.pokemon-card { width: 160px; height: 220px; }
+}
+
+.cards-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Center the type key container to the page */
+.type-key-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+/* TypeKey styles (responsive) */
+.type-key {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	padding: 6px 12px;
+}
+
+.type-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px;
+	border-radius: 6px;
+	cursor: pointer;
+	background: transparent;
+	transition: background 160ms ease, transform 120ms ease;
+	user-select: none;
+}
+
+.type-item:focus {
+	outline: 2px solid rgba(0,0,0,0.12);
+	outline-offset: 2px;
+}
+
+.type-item.active {
+	background: rgba(0,0,0,0.06);
+}
+
+.type-label { font-weight: 500; }
+
+/* Mobile: wrap the type-key into multiple rows (no horizontal scroll) */
+@media (max-width: 600px) {
+	.type-key {
+		flex-wrap: wrap; /* allow multiple rows */
+		overflow-x: visible; /* no horizontal scroll */
+		padding: 6px;
+		gap: 8px;
+		justify-content: center;
+	}
+
+	/* Let items be flexible and wrap into rows while maintaining a reasonable touch target */
+	.type-item {
+		flex: 1 1 120px; /* grow/shrink, base width 120px */
+		min-width: 100px;
+	}
+}
+
+/* Button Styles */
+button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+
+/* Search bar styles */
+input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  margin-right: 8px;
+}
+
+/* Dropdown styling */
+.dropdown {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 8px;
+  z-index: 10;
+
+  /* animation setup */
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}

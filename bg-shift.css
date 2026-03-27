@@ -1,0 +1,33 @@
+
+/* Ensure the document root and body span the full document and reset defaults */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Animate the document root (html) so the background always covers
+   the full document height even when content extends beyond body. */
+html {
+  animation: rotate-bg-color 10s infinite;
+}
+
+body {
+  /* keep minimum viewport height for body content/layout */
+  min-height: 100vh;
+}
+
+@keyframes rotate-bg-color {
+  0% {
+    background-color: rgb(236, 210, 210);
+  }
+  25% {
+    background-color: rgb(252, 226, 190);
+  }
+  75% {
+    background-color: rgb(243, 237, 178);
+  }
+  100% {
+    background-color: rgb(236, 210, 210);
+  }
+}
